@@ -3,7 +3,7 @@ import "./Header.scss";
 function Header() {
   return (
     <div className="header">
-      <p>Travel Jabs Clinic</p>
+      <h1>Travel Jabs Clinic</h1>
     </div>
   );
 }
