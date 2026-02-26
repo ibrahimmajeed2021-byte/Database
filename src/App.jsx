@@ -1,9 +1,11 @@
-import Layout from "./Layout.jsx";
+import Layout from "./layout/Layout.jsx";
 
 function App() {
+	const user = "manager";
+
 	return (
 		<>
-			<Layout />
+			<Layout props={user} />
 		</>
 	);
 }
