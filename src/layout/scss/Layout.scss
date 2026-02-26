@@ -8,11 +8,11 @@
 }
 
 div.layout {
-	background: red;
-	min-height: 100vh;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: auto 1fr auto;
+  background: red;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
 
   main {
     padding: 5px;
