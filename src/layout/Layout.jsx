@@ -1,12 +1,16 @@
 import Header from "./Header.jsx";
+import Form from "../UI/Form.jsx";
 import Footer from "./Footer.jsx";
-import "./layout.scss";
+import "./scss/layout.scss";
 
-function Layout() {
+function Layout({ props }) {
 	return (
 		<div className="layout">
 			<Header />
-			<main>Hello World!</main>
+			<main>
+				Logged in as {props}
+				<p>Add a Patient</p>
+			</main>
 			<Footer />
 		</div>
 	);
