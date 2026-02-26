@@ -1,0 +1,23 @@
+div.form {
+  border: 1px solid LightGrey;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  gap: 5px;
+}
+
+input {
+  padding: 3px;
+  &:hover {
+    outline: 2px solid lightgrey;
+  }
+
+  &:focus {
+    outline: 2px solid lightslategrey;
+  }
+}
