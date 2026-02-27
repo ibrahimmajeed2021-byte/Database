@@ -4,13 +4,13 @@ function NavBar() {
   return (
     <nav>
       <div className="NavItem">
-        <a>Manager</a>
+        <button onClick={() => {}}>Manager</button> 
       </div>
       <div className="NavItem">
-        <a>Clinician</a>
+        <button onClick={() => {}}>Clinician</button>
       </div>
       <div className="NavItem">
-        <a>Patient</a>
+        <button onClick={() => {}}>Patient</button>
       </div>
     </nav>
   );
