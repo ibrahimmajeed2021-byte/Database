@@ -1,34 +1,90 @@
+import { useState } from "react";
 import "./scss/Form.scss";
 
-function Form() {
+const Form = () => {
+	// Initialisation
+
+	const patients = [
+		{
+			PatientID: 0,
+			PatientFirstname: "",
+			PatientLastname: "",
+			PatientAddress: "",
+			PatientPostcode: "",
+			Patientage: 0,
+		},
+	];
+
+	// State
+	const [patient, setPatient] = useState(patients);
+
+	// Handlers
+
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		setPatient({ ...patient, [name]: value });
+	};
+
+	const handleSubmit = () => {
+		patients.push(patient);
+		console.log(patients);
+	};
+
+	// View
+
 	return (
 		<div className="form">
 			<label>
 				Patient ID
-				<input type="text" name="PatientID" />
+				<input type="text" name="PatientID" value={patients.PatientID} />
 			</label>
 			<label>
 				Patient First Name
-				<input type="text" name="PatientFirstName" />
+				<input
+					type="text"
+					name="PatientFirstName"
+					value={patients.PatientFirstname}
+					onChange={handleChange}
+				/>
 			</label>
 			<label>
 				Patient Last Name
-				<input type="text" name="PatientLastName" />
+				<input
+					type="text"
+					name="PatientLastName"
+					value={patients.PatientLastname}
+					onChange={handleChange}
+				/>
 			</label>
 			<label>
 				Patient Address
-				<input type="text" name="PatientAddress" />
+				<input
+					type="text"
+					name="PatientAddress"
+					value={patients.PatientAddress}
+					onChange={handleChange}
+				/>
 			</label>
 			<label>
 				Patient Postcode
-				<input type="text" name="PatientPostcode" />
+				<input
+					type="text"
+					name="PatientPostcode"
+					value={patients.PatientPostcode}
+					onChange={handleChange}
+				/>
 			</label>
 			<label>
 				Patient Age
-				<input name="PatientAge" />
+				<input
+					name="PatientAge"
+					value={patients.Patientage}
+					onChange={handleChange}
+				/>
 			</label>
+			<button onClick={handleSubmit}>Submit</button>
 		</div>
 	);
-}
+};
 
 export default Form;

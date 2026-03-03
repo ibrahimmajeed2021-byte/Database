@@ -10,6 +10,7 @@ function Layout({ props }) {
 			<main>
 				Logged in as {props}
 				<p>Add a Patient</p>
+				<Form />
 			</main>
 			<Footer />
 		</div>
