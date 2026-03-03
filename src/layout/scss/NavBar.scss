@@ -1,0 +1,16 @@
+nav {
+  padding: 5px;
+  background: lightgray;
+  display: flex;
+  gap: 10px;
+
+  div.NavItem a {
+    color: lightslategray;
+    text-decoration: none;
+
+    &:hover {
+      color: black;
+      text-decoration: underline;
+    }
+  }
+}

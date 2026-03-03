@@ -1,20 +1,17 @@
 import Header from "./Header.jsx";
-import Form from "../UI/Form.jsx";
 import Footer from "./Footer.jsx";
+import NavBar from "./NavBar.jsx";
 import "./scss/layout.scss";
 
-function Layout({ props }) {
-	return (
-		<div className="layout">
-			<Header />
-			<main>
-				Logged in as {props}
-				<p>Add a Patient</p>
-				<Form />
-			</main>
-			<Footer />
-		</div>
-	);
+function Layout({ children }) {
+  return (
+    <div className="layout">
+      <Header />
+      <NavBar />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
 }
 
 export default Layout;
