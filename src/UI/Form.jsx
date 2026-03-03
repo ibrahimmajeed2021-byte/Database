@@ -14,7 +14,7 @@ function Form() {
       <label>
         Patient Last Name
         <input type="text" name="PatientLastName" />
-      </label>
+      </label>  
       <label>
         Patient Address
         <input type="text" name="PatientAddress" />
