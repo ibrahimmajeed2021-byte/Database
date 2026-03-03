@@ -1,16 +1,17 @@
+import { Link } from "react-router-dom";
 import "./scss/NavBar.scss";
 
 function NavBar() {
   return (
     <nav>
       <div className="NavItem">
-        <a>Manager</a>
+        <Link to="/manager">Manager</Link>
       </div>
       <div className="NavItem">
-        <a>Clinician</a>
+        <Link to="/clinician">Clinician</Link>
       </div>
       <div className="NavItem">
-        <a>Patient</a>
+        <Link to="/patient">Patient</Link>
       </div>
     </nav>
   );
