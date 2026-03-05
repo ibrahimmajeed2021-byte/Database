@@ -5,6 +5,14 @@ function NavBar() {
   return (
     <nav>
       <div className="NavItem">
+        <Link to="/home">
+          <img
+            className="home"
+            src="https://img.icons8.com/?size=100&id=z6m63h25vYs2&format=png&color=000000"
+          />
+        </Link>
+      </div>
+      <div className="NavItem">
         <Link to="/manager">Manager</Link>
       </div>
       <div className="NavItem">
