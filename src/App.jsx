@@ -19,6 +19,7 @@ function App() {
             <Route path="/clinician" element={<Clinician />} />
             <Route path="/patient" element={<Patient />} />
             <Route path="/*" element={<PageNotFound />} />
+            <Route path="/home" element={<HomePage />} />
           </Routes>
         </Layout>
       </BrowserRouter>
