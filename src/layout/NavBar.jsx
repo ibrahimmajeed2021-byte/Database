@@ -21,6 +21,11 @@ function NavBar() {
       <div className="NavItem">
         <Link to="/patient">Patient</Link>
       </div>
+      <div className="NavItem">
+        <div className="LogOut">
+          <Link to="/">Log Out</Link>
+        </div>
+      </div>
     </nav>
   );
 }
