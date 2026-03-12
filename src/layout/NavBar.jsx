@@ -1,7 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./scss/NavBar.scss";
 
-function NavBar() {
+function NavBar({ isLoggedIn, onLogout }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    onLogout();
+    navigate("/");
+  };
   return (
     <nav>
       <div className="NavItem">
@@ -21,11 +27,15 @@ function NavBar() {
       <div className="NavItem">
         <Link to="/patient">Patient</Link>
       </div>
-      <div className="NavItem">
-        <div className="LogOut">
-          <Link to="/">Log Out</Link>
+      {isLoggedIn && (
+        <div className="NavItem">
+          <div className="LogOut">
+            <Link to="/" onClick={handleLogout}>
+              Log Out
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }

@@ -16,10 +16,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserRole(null);
+  };
+
   return (
     <>
       <BrowserRouter>
-        <Layout user={user}>
+        <Layout isLoggedIn={isLoggedIn} onLogout={handleLogout}>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route
