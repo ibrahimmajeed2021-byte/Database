@@ -24,7 +24,11 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Layout isLoggedIn={isLoggedIn} onLogout={handleLogout}>
+        <Layout
+          isLoggedIn={isLoggedIn}
+          userRole={userRole}
+          onLogout={handleLogout}
+        >
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route
