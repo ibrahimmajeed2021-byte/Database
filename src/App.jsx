@@ -35,7 +35,8 @@ function App() {
             <Route
               path="/clinician"
               element={
-                isLoggedIn && userRole === "clinician" ? (
+                isLoggedIn &&
+                (userRole === "manager" || userRole === "clinician") ? (
                   <Clinician />
                 ) : (
                   <Navigate to="/" />
@@ -44,13 +45,7 @@ function App() {
             />
             <Route
               path="/patient"
-              element={
-                isLoggedIn && userRole === "patient" ? (
-                  <Patient />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
+              element={isLoggedIn ? <Patient /> : <Navigate to="/" />}
             />
             <Route path="/*" element={<PageNotFound />} />
             <Route path="/home" element={<HomePage />} />
