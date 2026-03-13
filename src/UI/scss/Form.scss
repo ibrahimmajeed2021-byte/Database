@@ -8,10 +8,10 @@ div.form {
 }
 
 label {
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-  gap: 5px;
+	display: flex;
+	flex-direction: column;
+	padding: 5px;
+	gap: 5px;
 }
 
 input {
@@ -22,9 +22,9 @@ input {
     outline: 2px solid lightgrey;
   }
 
-  &:focus {
-    outline: 2px solid lightslategrey;
-  }
+	&:focus {
+		outline: 2px solid lightslategrey;
+	}
 }
 
 button {
