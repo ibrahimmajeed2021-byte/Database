@@ -27,9 +27,14 @@ input {
   }
 }
 
-button {
+button.LoginClinician {
   padding: 2px;
   background: lightgrey;
-  border: 1px solid lightslategrey;
   margin: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    border: 2px solid lightslategrey;
+  }
 }
