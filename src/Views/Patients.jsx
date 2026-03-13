@@ -10,6 +10,7 @@ function Patients() {
 	const postPatientsEndpoint = `${apiURL}/patients`;
 	//states
 	const [patients, loadingMessage, loadPatients] = useLoad(patientsEndpoint);
+	const [showForm, setShowForm] = useState(false);
 
 	API.get(patientsEndpoint);
 
@@ -26,6 +27,8 @@ function Patients() {
 	return (
 		<>
 			<h1>Patients</h1>
+			<button onClick={() => setShowForm(true)}>Add Patient</button>
+			{showForm && <Form onClose={() => setShowForm(false)} />}
 			{!patients ? (
 				<p>{loadingMessage}</p>
 			) : (
