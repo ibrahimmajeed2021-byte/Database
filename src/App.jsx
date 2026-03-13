@@ -3,7 +3,6 @@ import Layout from "./layout/Layout.jsx";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Manager from "./Views/Manager.jsx";
 import Clinician from "./Views/Clinician.jsx";
-import Patient from "./Views/Patient.jsx";
 import Patients from "./Views/Patients.jsx";
 import PageNotFound from "./Views/404.jsx";
 import HomePage from "./Views/HomePage.jsx";
@@ -55,7 +54,7 @@ function App() {
             />
             <Route
               path="/patient"
-              element={isLoggedIn ? <Patient /> : <Navigate to="/" />}
+              element={isLoggedIn ? <Patients /> : <Navigate to="/" />}
             />
             <Route path="/*" element={<PageNotFound />} />
             <Route path="/home" element={<HomePage />} />

@@ -1,6 +1,8 @@
 import "./LoginClinician.scss";
+import "./login.scss";
 import { useNavigate } from "react-router-dom";
 
+// testing if the merge will work
 function LoginClinician({ setIsLoggedIn, setUserRole }) {
   const navigate = useNavigate();
 
@@ -14,7 +16,7 @@ function LoginClinician({ setIsLoggedIn, setUserRole }) {
   return (
     <div className="Login">
       <h2>Clinician Login</h2>
-      <form onSubmit={handleLogin}>
+      <form className="form" onSubmit={handleLogin}>
         <label>
           Username
           <input type="text" />
@@ -23,7 +25,7 @@ function LoginClinician({ setIsLoggedIn, setUserRole }) {
           Password
           <input type="password" />
         </label>
-        <button>Login</button>
+        <button className="LoginClinician">Login</button>
       </form>
     </div>
   );

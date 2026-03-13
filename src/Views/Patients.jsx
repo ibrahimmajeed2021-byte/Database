@@ -12,7 +12,7 @@ function Patients() {
 	const [patients, loadingMessage, loadPatients] = useLoad(patientsEndpoint);
 	const [showForm, setShowForm] = useState(false);
 
-	API.get(patientsEndpoint);
+  API.get(patientsEndpoint);
 
 	//handlers
 	const handleSubmit = async (patient) => {
