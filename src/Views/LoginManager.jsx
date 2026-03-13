@@ -1,3 +1,4 @@
+import BackButton from "../UI/BackButton";
 import "./LoginManager.scss";
 import "./login.scss";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ function LoginManager({ setIsLoggedIn, setUserRole }) {
 
   return (
     <div className="Login">
+      <BackButton />
       <h2>Manager Login</h2>
       <form className="form" onSubmit={handleLogin}>
         <label>
