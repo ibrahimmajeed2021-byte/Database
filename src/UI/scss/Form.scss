@@ -1,7 +1,10 @@
 div.form {
-	border: 1px solid LightGrey;
-	border-radius: 3px;
-	padding: 10px;
+  border: 1px solid LightGrey;
+  border-radius: 3px;
+  padding: 10px;
+  background: lightgrey;
+  width: fit-content;
+  border-radius: 10px;
 }
 
 label {
@@ -12,13 +15,21 @@ label {
 }
 
 input {
-	padding: 3px;
-	width: 500px;
-	&:hover {
-		outline: 2px solid lightgrey;
-	}
+  padding: 3px;
+  width: 500px;
+  background: rgb(250, 250, 250);
+  &:hover {
+    outline: 2px solid lightgrey;
+  }
 
 	&:focus {
 		outline: 2px solid lightslategrey;
 	}
+}
+
+button {
+  padding: 2px;
+  background: lightgrey;
+  border: 1px solid lightslategrey;
+  margin: 5px;
 }
