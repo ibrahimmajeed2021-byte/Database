@@ -3,6 +3,7 @@ import API from "../api/API";
 import useLoad from "../api/useLoad";
 import { useState } from "react";
 import { CardContainer, Card } from "../UI/Card";
+import Form from "../UI/Form";
 
 function Patients() {
 	//initialisation
