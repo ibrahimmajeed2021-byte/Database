@@ -7,7 +7,13 @@ function Layout({ children, isLoggedIn, onLogout, userRole }) {
   return (
     <div className="layout">
       <Header />
-      <NavBar isLoggedIn={isLoggedIn} onLogout={onLogout} userRole={userRole} />
+      {isLoggedIn && (
+        <NavBar
+          isLoggedIn={isLoggedIn}
+          userRole={userRole}
+          onLogout={onLogout}
+        />
+      )}
       <main>{children}</main>
       <Footer />
     </div>

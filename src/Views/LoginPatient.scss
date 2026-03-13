@@ -1,0 +1,35 @@
+form {
+  border: 1px solid LightGrey;
+  border-radius: 3px;
+  padding: 10px;
+  background: lightgrey;
+  width: fit-content;
+  border-radius: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  gap: 5px;
+}
+
+input {
+  padding: 3px;
+  width: 500px;
+  background: rgb(250, 250, 250);
+  &:hover {
+    outline: 2px solid lightgrey;
+  }
+
+  &:focus {
+    outline: 2px solid lightslategrey;
+  }
+}
+
+button {
+  padding: 2px;
+  background: lightgrey;
+  border: 1px solid lightslategrey;
+  margin: 5px;
+}
