@@ -4,14 +4,14 @@ import NavBar from "./NavBar.jsx";
 import "./scss/layout.scss";
 
 function Layout({ children }) {
-  return (
-    <div className="layout">
-      <Header />
-      <NavBar />
-      <main>{children}</main>
-      <Footer />
-    </div>
-  );
+	return (
+		<div className="layout">
+			<Header />
+			<NavBar />
+			<main>{children}</main>
+			<Footer />
+		</div>
+	);
 }
 
 export default Layout;
