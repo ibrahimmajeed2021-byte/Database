@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Manager from "./Views/Manager.jsx";
 import Clinician from "./Views/Clinician.jsx";
 import Patient from "./Views/Patient.jsx";
+import Patients from "./Views/Patients.jsx";
 import PageNotFound from "./Views/404.jsx";
 import HomePage from "./Views/HomePage.jsx";
 import Landing from "./Views/Landing.jsx";
