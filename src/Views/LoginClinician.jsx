@@ -2,6 +2,7 @@ import "./LoginClinician.scss";
 import "./login.scss";
 import { useNavigate } from "react-router-dom";
 
+// testing if the merge will work
 function LoginClinician({ setIsLoggedIn, setUserRole }) {
   const navigate = useNavigate();
 
