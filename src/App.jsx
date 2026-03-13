@@ -54,7 +54,13 @@ function App() {
             />
             <Route
               path="/patient"
-              element={isLoggedIn ? <Patients /> : <Navigate to="/" />}
+              element={
+                isLoggedIn ? (
+                  <Patients userRole={userRole} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
             />
             <Route path="/*" element={<PageNotFound />} />
             <Route path="/home" element={<HomePage />} />
