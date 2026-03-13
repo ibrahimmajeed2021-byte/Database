@@ -9,10 +9,17 @@ function NavBar({ isLoggedIn, onLogout, userRole }) {
     navigate("/");
   };
 
+  const getHomePage = () => {
+    if (userRole === "manager") return "/manager";
+    if (userRole === "clinician") return "/clinician";
+    if (userRole === "patient") return "/patient";
+    return "/";
+  };
+
   return (
     <nav>
       <div className="NavItem">
-        <Link to="/home">
+        <Link to={getHomePage()}>
           <img
             className="home"
             src="https://img.icons8.com/?size=100&id=z6m63h25vYs2&format=png&color=000000"

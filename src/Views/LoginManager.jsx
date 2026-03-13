@@ -12,7 +12,7 @@ function LoginManager({ setIsLoggedIn, setUserRole }) {
   };
 
   return (
-    <div>
+    <div className="Login">
       <h2>Manager Login</h2>
       <form onSubmit={handleLogin}>
         <label>

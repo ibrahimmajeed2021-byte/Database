@@ -12,7 +12,7 @@ function LoginPatient({ setIsLoggedIn, setUserRole }) {
   };
 
   return (
-    <div>
+    <div className="Login">
       <h2>Patient Login</h2>
       <form onSubmit={handleLogin}>
         <label>
