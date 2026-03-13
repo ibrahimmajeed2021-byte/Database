@@ -1,4 +1,5 @@
 import "./LoginPatient.scss";
+import "./login.scss";
 import { useNavigate } from "react-router-dom";
 
 function LoginPatient({ setIsLoggedIn, setUserRole }) {
@@ -14,7 +15,7 @@ function LoginPatient({ setIsLoggedIn, setUserRole }) {
   return (
     <div className="Login">
       <h2>Patient Login</h2>
-      <form onSubmit={handleLogin}>
+      <form className="form" onSubmit={handleLogin}>
         <label>
           Username
           <input type="text" />

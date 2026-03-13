@@ -1,4 +1,5 @@
 import "./LoginManager.scss";
+import "./login.scss";
 import { useNavigate } from "react-router-dom";
 
 function LoginManager({ setIsLoggedIn, setUserRole }) {
@@ -14,7 +15,7 @@ function LoginManager({ setIsLoggedIn, setUserRole }) {
   return (
     <div className="Login">
       <h2>Manager Login</h2>
-      <form onSubmit={handleLogin}>
+      <form className="form" onSubmit={handleLogin}>
         <label>
           Username
           <input type="text" />
@@ -23,7 +24,7 @@ function LoginManager({ setIsLoggedIn, setUserRole }) {
           Password
           <input type="password" />
         </label>
-        <button>Login</button>
+        <button className="LoginManager">Login</button>
       </form>
     </div>
   );

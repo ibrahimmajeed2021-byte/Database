@@ -1,5 +1,24 @@
-.loginButton {
+.Landing {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 5px;
+  align-items: center;
+  min-height: 70vh;
+
+  .loginButton {
+    text-decoration: none;
+
+    button.LandingButton {
+      padding: 30px;
+      margin: 30px;
+      font-size: 18px;
+      width: 300px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background: rgb(174, 174, 174);
+      }
+    }
+  }
 }
