@@ -6,18 +6,14 @@ function ClinicianBookings() {
   // State
   const [bookings, setBookings] = useState([]);
 
-  // Load bookings from localStorage
   useEffect(() => {
     const loadBookings = () => {
       const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
-      // Show only pending bookings
       const pendingBookings = allBookings.filter((b) => b.status === "pending");
       setBookings(pendingBookings);
     };
 
     loadBookings();
-
-    // Refresh every 2 seconds to check for new bookings
     const interval = setInterval(loadBookings, 2000);
     return () => clearInterval(interval);
   }, []);

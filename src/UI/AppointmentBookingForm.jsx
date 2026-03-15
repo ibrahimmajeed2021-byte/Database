@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./scss/Form.scss";
+import "../UI/scss/AppointmentBookingForm.scss";
 
 const AppointmentBookingForm = ({ onClose, onSubmit }) => {
   // Initialisation
@@ -161,7 +161,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
   }
 
   return (
-    <div className="form">
+    <div className="AppointmentForm">
       <h2>Book an Appointment</h2>
 
       <label>
