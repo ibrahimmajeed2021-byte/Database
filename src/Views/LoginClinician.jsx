@@ -1,7 +1,7 @@
 import "./LoginClinician.scss";
 import "./login.scss";
 import { useNavigate } from "react-router-dom";
-import BackButton from '../UI/BackButton.jsx';
+import BackButton from "../UI/BackButton.jsx";
 
 // testing if the merge will work
 function LoginClinician({ setIsLoggedIn, setUserRole }) {
