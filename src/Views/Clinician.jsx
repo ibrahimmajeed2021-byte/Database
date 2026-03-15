@@ -1,10 +1,9 @@
-import "./Clinician.scss";
+import ClinicianBooking from "../UI/ClinicianBooking.jsx";
 
 function Clinician() {
   return (
     <div>
-      {" "}
-      <p>Logged in as Clinician</p>{" "}
+      <ClinicianBooking />
     </div>
   );
 }

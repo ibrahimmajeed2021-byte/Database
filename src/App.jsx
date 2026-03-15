@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Layout from "./layout/Layout.jsx";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Layout from "./layout/Layout.jsx";
 import Manager from "./Views/Manager.jsx";
 import Clinician from "./Views/Clinician.jsx";
 import Patients from "./Views/Patients.jsx";
@@ -12,7 +12,6 @@ import LoginClinician from "./Views/LoginClinician.jsx";
 import LoginPatient from "./Views/LoginPatient.jsx";
 
 function App() {
-  const user = "manager";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
 
