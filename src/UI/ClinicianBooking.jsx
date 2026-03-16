@@ -11,7 +11,7 @@ function ClinicianBookings({ clinicianId, clinicianName }) {
       const pendingBookings = allBookings.filter((b) => b.status === "pending");
       setBookings(pendingBookings);
     };
-
+    // stores in local storage
     loadBookings();
     const interval = setInterval(loadBookings, 2000);
     return () => clearInterval(interval);

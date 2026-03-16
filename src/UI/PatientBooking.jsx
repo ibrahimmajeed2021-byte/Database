@@ -50,7 +50,6 @@ function PatientBookings() {
                   ×
                 </button>
 
-                {/* Status badge */}
                 <div className="status-badge">
                   <span className={booking.status}>
                     {booking.status === "pending" && "PENDING"}
@@ -59,12 +58,10 @@ function PatientBookings() {
                   </span>
                 </div>
 
-                {/* Patient name */}
                 <h3>
                   {booking.firstName} {booking.lastName}
                 </h3>
 
-                {/* Booking details */}
                 <div className="booking-details">
                   <p>
                     <strong>Clinic:</strong> {booking.clinicName}
@@ -86,7 +83,6 @@ function PatientBookings() {
                   </p>
                 </div>
 
-                {/* Status messages */}
                 {booking.status === "pending" && (
                   <div className="status-message pending">
                     <strong>Waiting for clinician approval</strong>
