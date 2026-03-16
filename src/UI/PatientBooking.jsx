@@ -5,7 +5,6 @@ import "../Views/Patients.scss";
 function PatientBookings() {
   // State
   const [bookings, setBookings] = useState([]);
-
   useEffect(() => {
     const loadBookings = () => {
       const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
