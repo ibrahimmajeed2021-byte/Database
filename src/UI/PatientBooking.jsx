@@ -28,6 +28,39 @@ function PatientBookings() {
     setBookings(bookings.filter((b) => b.id !== bookingId));
   };
 
+  const handleCancel = (bookingId) => {
+    const booking = bookings.find((b) => b.id === bookingId);
+
+    const confirmMessage =
+      booking.status === "approved"
+        ? "Are you sure you want to cancel this appointment? This cannot be undone."
+        : "Are you sure you want to cancel this booking request?";
+
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
+    const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+    const updatedBookings = allBookings.map((b) =>
+      b.id === bookingId ? { ...b, status: "cancelled" } : b
+    );
+    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+
+    setBookings(
+      bookings.map((b) =>
+        b.id === bookingId ? { ...b, status: "cancelled" } : b
+      )
+    );
+
+    alert("Appointment cancelled successfully.");
+  };
+
+  const handleReschedule = (booking) => {
+    alert(
+      "Reschedule feature coming next! We'll reopen the booking form with this appointment's details."
+    );
+  };
+
   return (
     <div className="patient-bookings">
       <h2>My Appointment Requests</h2>
@@ -41,7 +74,6 @@ function PatientBookings() {
           {bookings.map((booking) => (
             <Card key={booking.id}>
               <div className="booking-card">
-                {/* Dismiss button */}
                 <button
                   className="dismiss-btn"
                   onClick={() => handleDismiss(booking.id)}
@@ -56,6 +88,43 @@ function PatientBookings() {
                     {booking.status === "approved" && "APPROVED"}
                     {booking.status === "rejected" && "REJECTED"}
                   </span>
+                </div>
+                <div className="action-buttons">
+                  {booking.status === "pending" && (
+                    <button
+                      className="cancel-btn"
+                      onClick={() => handleCancel(booking.id)}
+                    >
+                      Cancel Request
+                    </button>
+                  )}
+
+                  {booking.status === "approved" && (
+                    <>
+                      <button
+                        className="reschedule-btn"
+                        onClick={() => handleReschedule(booking)}
+                      >
+                        Reschedule
+                      </button>
+                      <button
+                        className="cancel-btn"
+                        onClick={() => handleCancel(booking.id)}
+                      >
+                        Cancel Appointment
+                      </button>
+                    </>
+                  )}
+
+                  {booking.status === "cancelled" && (
+                    <div className="status-message cancelled">
+                      <strong>Appointment Cancelled</strong>
+                      <p>
+                        This appointment has been cancelled. You can book a new
+                        appointment anytime.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <h3>
