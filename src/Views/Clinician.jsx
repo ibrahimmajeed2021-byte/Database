@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ClinicianBooking from "../UI/ClinicianBooking.jsx";
 import ClinicianSchedule from "../UI/ClinicianSchedule.jsx";
+import "./Clinician.scss";
 
 function Clinician() {
   const clinicianId = 1;
@@ -8,42 +9,21 @@ function Clinician() {
   const [activeTab, setActiveTab] = useState("schedule");
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          padding: "20px",
-          borderBottom: "2px solid #ddd",
-        }}
-      >
+    <div className="clinician-view">
+      <div className="tab-navigation">
         <button
           onClick={() => setActiveTab("schedule")}
-          style={{
-            padding: "10px 20px",
-            background: activeTab === "schedule" ? "lightslategrey" : "#f0f0f0",
-            color: activeTab === "schedule" ? "white" : "#333",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontWeight: "500",
-            fontSize: "16px",
-          }}
+          className={`tab-button ${
+            activeTab === "schedule" ? "active" : "inactive"
+          }`}
         >
           My Schedule
         </button>
         <button
           onClick={() => setActiveTab("pending")}
-          style={{
-            padding: "10px 20px",
-            background: activeTab === "pending" ? "lightslategrey" : "#f0f0f0",
-            color: activeTab === "pending" ? "white" : "#333",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontWeight: "500",
-            fontSize: "16px",
-          }}
+          className={`tab-button ${
+            activeTab === "pending" ? "active" : "inactive"
+          }`}
         >
           Pending Requests
         </button>
