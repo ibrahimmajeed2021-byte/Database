@@ -110,6 +110,12 @@ function MySchedule({ clinicianId, clinicianName }) {
                         <p>
                           <strong>Cost:</strong> £{appointment.vaccineCost}
                         </p>
+                        {appointment.notes && (
+                          <div className="booking-notes">
+                            <strong>Booking Notes:</strong>
+                            <p>{appointment.notes}</p>
+                          </div>
+                        )}
                       </div>
 
                       <div className="action-buttons">

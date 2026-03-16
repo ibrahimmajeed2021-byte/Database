@@ -73,6 +73,29 @@
       }
     }
 
+    .booking-notes {
+      margin-top: 15px;
+      padding: 12px;
+      background: #fff9e6;
+      border-left: 4px solid #ffa726;
+      border-radius: 4px;
+
+      strong {
+        display: block;
+        color: #f57c00;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      p {
+        margin: 0;
+        color: #666;
+        font-size: 13px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+    }
+
     .action-buttons {
       display: flex;
       gap: 10px;

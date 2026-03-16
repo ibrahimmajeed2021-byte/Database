@@ -13,6 +13,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
     vaccineID: "",
     appointmentDate: "",
     appointmentTime: "",
+    notes: "",
   };
 
   const timeSlots = [
@@ -114,6 +115,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
       vaccineCost: selectedVaccine?.VaccineCost || "0",
       appointmentDate: appointment.appointmentDate,
       appointmentTime: appointment.appointmentTime,
+      notes: appointment.notes,
       status: "pending",
       submittedAt: new Date().toISOString(),
     };
@@ -276,6 +278,16 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
             </option>
           ))}
         </select>
+      </label>
+      <label>
+        Booking Notes (Optional)
+        <textarea
+          name="notes"
+          value={appointment.notes}
+          onChange={handleChange}
+          placeholder="Any special requirements or information for the clinician..."
+          rows="4"
+        />
       </label>
 
       <button onClick={handleSubmit}>Submit</button>
