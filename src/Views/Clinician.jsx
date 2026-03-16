@@ -1,11 +1,11 @@
 import { useState } from "react";
 import ClinicianBooking from "../UI/ClinicianBooking.jsx";
 import ClinicianSchedule from "../UI/ClinicianSchedule.jsx";
-function Clinician() {
-  const clinicianId = 1; // Temporary - replace with actual logged-in clinician ID
-  const clinicianName = "Dr. Smith"; // Temporary - replace with actual name
 
-  const [activeTab, setActiveTab] = useState("schedule"); // Default to schedule
+function Clinician() {
+  const clinicianId = 1;
+  const clinicianName = "Dr. Smith";
+  const [activeTab, setActiveTab] = useState("schedule");
 
   return (
     <div>

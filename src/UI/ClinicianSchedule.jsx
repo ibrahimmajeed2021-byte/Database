@@ -9,12 +9,10 @@ function MySchedule({ clinicianId, clinicianName }) {
     const loadAppointments = () => {
       const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
 
-      // Get approved appointments assigned to this clinician
       const myAppointments = allBookings.filter(
         (b) => b.status === "approved" && b.clinicianId === clinicianId
       );
 
-      // Sort by date and time
       myAppointments.sort((a, b) => {
         const dateA = new Date(`${a.appointmentDate} ${a.appointmentTime}`);
         const dateB = new Date(`${b.appointmentDate} ${b.appointmentTime}`);
@@ -51,7 +49,6 @@ function MySchedule({ clinicianId, clinicianName }) {
     alert("Appointment cancelled.");
   };
 
-  // Group appointments by date
   const groupedAppointments = appointments.reduce((groups, apt) => {
     const date = apt.appointmentDate;
     if (!groups[date]) {
