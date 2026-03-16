@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { CardContainer, Card } from "../UI/Card.jsx";
 import "../UI/scss/PatientBooking.scss";
 
-function PatientBookings() {
+function PatientBookings({ onReschedule }) {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
@@ -56,9 +56,9 @@ function PatientBookings() {
   };
 
   const handleReschedule = (booking) => {
-    alert(
-      "Reschedule feature coming next! We'll reopen the booking form with this appointment's details."
-    );
+    if (onReschedule) {
+      onReschedule(booking);
+    }
   };
 
   return (

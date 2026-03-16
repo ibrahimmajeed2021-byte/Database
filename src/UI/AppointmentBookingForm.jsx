@@ -1,21 +1,7 @@
 import { useState, useEffect } from "react";
 import "../UI/scss/AppointmentBookingForm.scss";
 
-const AppointmentBookingForm = ({ onClose, onSubmit }) => {
-  // Initialisation
-  const initialAppointment = {
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    email: "",
-    phone: "",
-    clinicID: "",
-    vaccineID: "",
-    appointmentDate: "",
-    appointmentTime: "",
-    notes: "",
-  };
-
+const AppointmentBookingForm = ({ onClose, onSubmit, existingBooking }) => {
   const timeSlots = [
     "09:00",
     "09:30",
@@ -33,6 +19,19 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
     "16:30",
     "17:00",
   ];
+
+  const initialAppointment = existingBooking || {
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    email: "",
+    phone: "",
+    clinicID: "",
+    vaccineID: "",
+    appointmentDate: "",
+    appointmentTime: "",
+    notes: "",
+  };
 
   // State
   const [appointment, setAppointment] = useState(initialAppointment);
@@ -102,7 +101,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
 
     // Create booking object
     const booking = {
-      id: Date.now(),
+      id: existingBooking?.id || Date.now(),
       firstName: appointment.firstName,
       lastName: appointment.lastName,
       dateOfBirth: appointment.dateOfBirth,
@@ -116,31 +115,40 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
       appointmentDate: appointment.appointmentDate,
       appointmentTime: appointment.appointmentTime,
       notes: appointment.notes,
-      status: "pending",
-      submittedAt: new Date().toISOString(),
+      status: existingBooking ? "approved" : "pending",
+      submittedAt: existingBooking?.submittedAt || new Date().toISOString(),
+      clinicianID: existingBooking?.clinicianID,
+      clinicianName: existingBooking?.clinicianName,
     };
 
-    const existingBookings = JSON.parse(
-      localStorage.getItem("bookings") || "[]"
-    );
-    existingBookings.push(booking);
-    localStorage.setItem("bookings", JSON.stringify(existingBookings));
+    const storedBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
 
-    console.log("Booking saved:", booking);
+    let updatedBookings;
+    if (existingBooking) {
+      updatedBookings = storedBookings.map((b) =>
+        b.id === existingBooking.id ? booking : b
+      );
+    } else {
+      updatedBookings = [...storedBookings, booking];
+    }
 
-    alert(
-      `Appointment Request Submitted!\n\n` +
+    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+
+    const message = existingBooking
+      ? `Appointment Rescheduled!\n\nNew Date: ${appointment.appointmentDate}\nNew Time: ${appointment.appointmentTime}`
+      : `Appointment Request Submitted!\n\n` +
         `Name: ${appointment.firstName} ${appointment.lastName}\n` +
         `Clinic: ${selectedClinic?.ClinicName}\n` +
         `Vaccine: ${selectedVaccine?.VaccineName}\n` +
         `Cost: £${selectedVaccine?.VaccineCost}\n` +
         `Date: ${appointment.appointmentDate}\n` +
         `Time: ${appointment.appointmentTime}\n\n` +
-        `Waiting for clinician approval...`
-    );
+        `Waiting for clinician approval...`;
+
+    alert(message);
 
     if (onSubmit) {
-      onSubmit(appointment);
+      onSubmit(booking);
     }
     onClose();
   };
@@ -154,7 +162,9 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
   if (loading) {
     return (
       <div className="form">
-        <h2>Loading...</h2>
+        <h2>
+          {existingBooking ? "Reschedule Appointment" : "Book an Appointment"}
+        </h2>
         <p>Fetching clinics and vaccines...</p>
       </div>
     );
@@ -162,7 +172,9 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
 
   return (
     <div className="AppointmentForm">
-      <h2>Book an Appointment</h2>
+      <h2>
+        {existingBooking ? "Reschedule Appointment" : "Book an Appointment"}
+      </h2>
 
       <label>
         First Name
@@ -279,6 +291,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
           ))}
         </select>
       </label>
+
       <label>
         Booking Notes (Optional)
         <textarea
@@ -290,7 +303,9 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
         />
       </label>
 
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>
+        {existingBooking ? "Update Appointment" : "Submit"}
+      </button>
       <button onClick={onClose}>Close</button>
     </div>
   );

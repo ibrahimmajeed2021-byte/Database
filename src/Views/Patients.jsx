@@ -17,6 +17,7 @@ function Patients({ userRole }) {
   const [patients, loadingMessage, loadPatients] = useLoad(patientsEndpoint);
   const [showForm, setShowForm] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [rescheduleBooking, setRescheduleBooking] = useState(null);
 
   API.get(patientsEndpoint);
 
@@ -32,6 +33,16 @@ function Patients({ userRole }) {
 
   const handleBookingSubmit = (bookingData) => {
     console.log("Booking submitted:", bookingData);
+  };
+
+  const handleReschedule = (booking) => {
+    setRescheduleBooking(booking);
+    setShowBookingForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowBookingForm(false);
+    setRescheduleBooking(null);
   };
 
   //view
@@ -53,12 +64,15 @@ function Patients({ userRole }) {
 
       {showBookingForm && (
         <AppointmentBookingForm
-          onClose={() => setShowBookingForm(false)}
+          onClose={handleCloseForm}
           onSubmit={handleBookingSubmit}
+          existingBooking={rescheduleBooking}
         />
       )}
 
-      {userRole === "patient" && <PatientBooking />}
+      {userRole === "patient" && (
+        <PatientBooking onReschedule={handleReschedule} />
+      )}
 
       {(userRole === "manager" || userRole === "clinician") && (
         <>
