@@ -152,6 +152,35 @@ function PatientBookings({ onReschedule }) {
                   </p>
                 </div>
 
+                {/* Show vaccination outcomes for completed appointments */}
+                {booking.completed && (
+                  <div className="vaccination-outcome">
+                    <h4>Vaccination Outcome</h4>
+                    <p>
+                      <strong>Status:</strong>{" "}
+                      {booking.vaccinationDelivered ? (
+                        <span className="delivered">
+                          ✓ Vaccination Delivered
+                        </span>
+                      ) : (
+                        <span className="not-delivered">
+                          ✗ Vaccination Not Delivered
+                        </span>
+                      )}
+                    </p>
+                    {booking.outcomeNotes && (
+                      <div className="outcome-notes-patient">
+                        <strong>Notes from Clinician:</strong>
+                        <p>{booking.outcomeNotes}</p>
+                      </div>
+                    )}
+                    <p className="completed-date">
+                      Completed:{" "}
+                      {new Date(booking.completedAt).toLocaleString()}
+                    </p>
+                  </div>
+                )}
+
                 {booking.status === "pending" && (
                   <div className="status-message pending">
                     <strong>Waiting for clinician approval</strong>

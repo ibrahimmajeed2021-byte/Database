@@ -185,4 +185,66 @@
       }
     }
   }
+  .vaccination-outcome {
+    margin-top: 20px;
+    padding: 20px;
+    background: #e8f5e9;
+    border-radius: 8px;
+    border-left: 4px solid #4caf50;
+
+    h4 {
+      margin: 0 0 15px 0;
+      color: #2e7d32;
+      font-size: 16px;
+    }
+
+    p {
+      margin: 10px 0;
+      color: #333;
+      font-size: 14px;
+
+      strong {
+        color: #2e7d32;
+      }
+
+      .delivered {
+        color: #2e7d32;
+        font-weight: bold;
+      }
+
+      .not-delivered {
+        color: #f57c00;
+        font-weight: bold;
+      }
+    }
+
+    .outcome-notes-patient {
+      margin-top: 15px;
+      padding: 12px;
+      background: white;
+      border-radius: 5px;
+      border: 1px solid #c8e6c9;
+
+      strong {
+        display: block;
+        color: #2e7d32;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      p {
+        margin: 0;
+        color: #555;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+    }
+
+    .completed-date {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #666;
+      font-style: italic;
+    }
+  }
 }

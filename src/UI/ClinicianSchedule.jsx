@@ -4,6 +4,7 @@ import "../UI/scss/ClinicianSchedule.scss";
 
 function MySchedule({ clinicianId, clinicianName }) {
   const [appointments, setAppointments] = useState([]);
+  const [completionData, setCompletionData] = useState({});
 
   useEffect(() => {
     const loadAppointments = () => {
@@ -27,13 +28,47 @@ function MySchedule({ clinicianId, clinicianName }) {
     return () => clearInterval(interval);
   }, [clinicianId]);
 
-  const handleComplete = (bookingId) => {
+  const handleComplete = (appointmentId) => {
+    const data = completionData[appointmentId] || {};
+
+    if (!window.confirm("Mark this appointment as completed?")) {
+      return;
+    }
+
     const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
-    const updatedBookings = allBookings.map((b) =>
-      b.id === bookingId ? { ...b, status: "completed" } : b
+    const updatedBookings = allBookings.map((booking) =>
+      booking.id === appointmentId
+        ? {
+            ...booking,
+            completed: true,
+            completedAt: new Date().toISOString(),
+            vaccinationDelivered: data.vaccinationDelivered || false,
+            outcomeNotes: data.outcomeNotes || "",
+          }
+        : booking
     );
+
     localStorage.setItem("bookings", JSON.stringify(updatedBookings));
-    setAppointments(appointments.filter((b) => b.id !== bookingId));
+
+    setAppointments(
+      appointments.map((appointment) =>
+        appointment.id === appointmentId
+          ? {
+              ...appointment,
+              completed: true,
+              completedAt: new Date().toISOString(),
+              vaccinationDelivered: data.vaccinationDelivered || false,
+              outcomeNotes: data.outcomeNotes || "",
+            }
+          : appointment
+      )
+    );
+
+    // Clear completion data for this appointment
+    const newCompletionData = { ...completionData };
+    delete newCompletionData[appointmentId];
+    setCompletionData(newCompletionData);
+
     alert("Appointment marked as completed!");
   };
 
@@ -57,6 +92,26 @@ function MySchedule({ clinicianId, clinicianName }) {
     groups[date].push(apt);
     return groups;
   }, {});
+
+  const handleVaccinationChange = (appointmentId, delivered) => {
+    setCompletionData({
+      ...completionData,
+      [appointmentId]: {
+        ...completionData[appointmentId],
+        vaccinationDelivered: delivered,
+      },
+    });
+  };
+
+  const handleOutcomeNotesChange = (appointmentId, notes) => {
+    setCompletionData({
+      ...completionData,
+      [appointmentId]: {
+        ...completionData[appointmentId],
+        outcomeNotes: notes,
+      },
+    });
+  };
 
   return (
     <div className="my-schedule">
@@ -119,12 +174,78 @@ function MySchedule({ clinicianId, clinicianName }) {
                       </div>
 
                       <div className="action-buttons">
-                        <button
-                          className="complete-btn"
-                          onClick={() => handleComplete(appointment.id)}
-                        >
-                          Mark as Completed
-                        </button>
+                        {!appointment.completed && (
+                          <div className="completion-section">
+                            <h4>Complete Appointment</h4>
+
+                            <div className="vaccination-status">
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  checked={
+                                    completionData[appointment.id]
+                                      ?.vaccinationDelivered || false
+                                  }
+                                  onChange={(e) =>
+                                    handleVaccinationChange(
+                                      appointment.id,
+                                      e.target.checked
+                                    )
+                                  }
+                                />
+                                <strong>Vaccination Delivered</strong>
+                              </label>
+                            </div>
+
+                            <div className="outcome-notes">
+                              <label>
+                                <strong>Outcome Notes:</strong>
+                                <textarea
+                                  placeholder="Enter outcome notes, observations, or follow-up instructions..."
+                                  value={
+                                    completionData[appointment.id]
+                                      ?.outcomeNotes || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleOutcomeNotesChange(
+                                      appointment.id,
+                                      e.target.value
+                                    )
+                                  }
+                                  rows="4"
+                                />
+                              </label>
+                            </div>
+
+                            <button
+                              className="complete-btn"
+                              onClick={() => handleComplete(appointment.id)}
+                            >
+                              Mark as Completed
+                            </button>
+                          </div>
+                        )}
+
+                        {appointment.completed && (
+                          <div className="completed-info">
+                            <p className="completed-badge">✓ Completed</p>
+                            <div className="outcome-summary">
+                              <p>
+                                <strong>Vaccination Delivered:</strong>{" "}
+                                {appointment.vaccinationDelivered
+                                  ? "Yes ✓"
+                                  : "No ✗"}
+                              </p>
+                              {appointment.outcomeNotes && (
+                                <div className="outcome-notes-display">
+                                  <strong>Outcome Notes:</strong>
+                                  <p>{appointment.outcomeNotes}</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
                         <button
                           className="cancel-btn"
                           onClick={() => handleCancel(appointment.id)}
