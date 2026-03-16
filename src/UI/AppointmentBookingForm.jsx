@@ -30,6 +30,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
     "15:30",
     "16:00",
     "16:30",
+    "17:00",
   ];
 
   // State
@@ -74,7 +75,6 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    // Basic validation
     if (!appointment.firstName || !appointment.lastName) {
       alert("Please enter first and last name");
       return;
@@ -92,7 +92,6 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
       return;
     }
 
-    // Get clinic and vaccine details
     const selectedClinic = clinics.find(
       (c) => c.ClinicID === parseInt(appointment.clinicID)
     );
@@ -102,7 +101,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
 
     // Create booking object
     const booking = {
-      id: Date.now(), // Simple unique ID
+      id: Date.now(),
       firstName: appointment.firstName,
       lastName: appointment.lastName,
       dateOfBirth: appointment.dateOfBirth,
@@ -119,7 +118,6 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
       submittedAt: new Date().toISOString(),
     };
 
-    // Save to localStorage
     const existingBookings = JSON.parse(
       localStorage.getItem("bookings") || "[]"
     );
@@ -248,14 +246,7 @@ const AppointmentBookingForm = ({ onClose, onSubmit }) => {
       </label>
 
       {selectedVaccine && (
-        <div
-          style={{
-            padding: "10px",
-            background: "#f0f0f0",
-            borderRadius: "5px",
-            marginBottom: "15px",
-          }}
-        >
+        <div className="cost-display">
           <strong>Cost: £{selectedVaccine.VaccineCost}</strong>
         </div>
       )}

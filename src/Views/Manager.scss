@@ -1,0 +1,46 @@
+.manager-view {
+  h1 {
+    padding: 20px 20px 0 20px;
+    color: #333;
+  }
+
+  .tab-navigation {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border-bottom: 2px solid #ddd;
+
+    .tab-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 16px;
+      transition: all 0.3s;
+
+      &.inactive {
+        background: #f0f0f0;
+        color: #333;
+
+        &:hover {
+          background: #e0e0e0;
+        }
+      }
+
+      &.active {
+        background: #4caf50;
+        color: white;
+
+        &:hover {
+          background: #45a049;
+          transform: translateY(-2px);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
