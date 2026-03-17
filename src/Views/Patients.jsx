@@ -27,10 +27,12 @@ function Patients({ userRole }) {
   const handleSubmit = async (patient) => {
     const result = await API.post(postPatientsEndpoint, patient);
     if (result.isSuccess) {
-      setShowBookingForm(false);
+      setShowForm(false);
       loadPatients(patientsEndpoint);
-      alert("Submission successful");
-    } else alert(`Submission unsuccessful: ${result.message}`);
+      alert("Patient added successfully!");
+    } else {
+      alert(`Failed to add patient: ${result.message}`);
+    }
   };
 
   const handleBookingSubmit = (bookingData) => {
@@ -69,7 +71,9 @@ function Patients({ userRole }) {
         </button>
       )}
 
-      {showForm && <Form onClose={() => setShowForm(false)} />}
+      {showForm && (
+        <Form onClose={() => setShowForm(false)} onSubmit={handleSubmit} />
+      )}
 
       {showBookingForm && (
         <AppointmentBookingForm
