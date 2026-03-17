@@ -152,7 +152,6 @@ function PatientBookings({ onReschedule }) {
                   </p>
                 </div>
 
-                {/* Show vaccination outcomes for completed appointments */}
                 {booking.completed && (
                   <div className="vaccination-outcome">
                     <h4>Vaccination Outcome</h4>

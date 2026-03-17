@@ -64,7 +64,6 @@ function MySchedule({ clinicianId, clinicianName }) {
       )
     );
 
-    // Clear completion data for this appointment
     const newCompletionData = { ...completionData };
     delete newCompletionData[appointmentId];
     setCompletionData(newCompletionData);
