@@ -56,6 +56,28 @@ function Patients({ userRole }) {
     });
   };
 
+  const handleDelete = async (patientId, patientName) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete patient: ${patientName}?\n\nThis action cannot be undone`
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const deleteEndpoint = `${apiURL}/patients/${patientId}`;
+      const result = await API.delete(deleteEndpoint);
+
+      if (result.isSuccess) {
+        alert("Patient Deleted Successfully!");
+        loadPatients(patientsEndpoint);
+      } else {
+        alert(`Failed to Delete Patient: ${result.message}`);
+      }
+    } catch (error) {
+      alert(`Error Deleting Patient: ${error.message}`);
+    }
+  };
+
   //view
   return (
     <>
@@ -146,6 +168,20 @@ function Patients({ userRole }) {
                             <p>
                               <strong>DOB:</strong> {patient.PatientDOB}
                             </p>
+
+                            {userRole === "manager" && (
+                              <button
+                                className="delete-patient-btn"
+                                onClick={() =>
+                                  handleDelete(
+                                    patient.PatientID,
+                                    `${patient.PatientFirstname} ${patient.PatientLastname}`
+                                  )
+                                }
+                              >
+                                Delete Patient
+                              </button>
+                            )}
                           </div>
                         )}
                       </div>
