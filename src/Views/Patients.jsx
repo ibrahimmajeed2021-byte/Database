@@ -18,6 +18,8 @@ function Patients({ userRole }) {
   const [showForm, setShowForm] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [rescheduleBooking, setRescheduleBooking] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [expandedCards, setExpandedCards] = useState({});
 
   API.get(patientsEndpoint);
 
@@ -25,7 +27,7 @@ function Patients({ userRole }) {
   const handleSubmit = async (patient) => {
     const result = await API.post(postPatientsEndpoint, patient);
     if (result.isSuccess) {
-      setShowForm(false);
+      setShowBookingForm(false);
       loadPatients(patientsEndpoint);
       alert("Submission successful");
     } else alert(`Submission unsuccessful: ${result.message}`);
@@ -43,6 +45,13 @@ function Patients({ userRole }) {
   const handleCloseForm = () => {
     setShowBookingForm(false);
     setRescheduleBooking(null);
+  };
+
+  const toggleCard = (patientId) => {
+    setExpandedCards({
+      ...expandedCards,
+      [patientId]: !expandedCards[patientId],
+    });
   };
 
   //view
@@ -76,16 +85,81 @@ function Patients({ userRole }) {
 
       {(userRole === "manager" || userRole === "clinician") && (
         <>
+          <div className="search-bar">
+            <span className="search-icon">🔍</span>
+            <input
+              type="text"
+              placeholder="Search patients by name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="patient-search"
+            />
+            {searchTerm && (
+              <button
+                className="clear-search"
+                onClick={() => setSearchTerm("")}
+                title="Clear search"
+              >
+                ×
+              </button>
+            )}
+          </div>
           {!patients ? (
             <p>{loadingMessage}</p>
           ) : (
-            <CardContainer>
-              {patients.map((patient) => (
-                <Card key={patient.PatientID} patient={patient}>
-                  <p>{`${patient.PatientFirstname} ${patient.PatientLastname}`}</p>
-                </Card>
-              ))}
-            </CardContainer>
+            <>
+              <CardContainer>
+                {patients
+                  .filter((patient) => {
+                    const fullName =
+                      `${patient.PatientFirstname} ${patient.PatientLastname}`.toLowerCase();
+                    return fullName.includes(searchTerm.toLowerCase());
+                  })
+                  .map((patient) => (
+                    <Card key={patient.PatientID} patient={patient}>
+                      <div className="patient-card">
+                        <button
+                          className="patient-name-toggle"
+                          onClick={() => toggleCard(patient.PatientID)}
+                        >
+                          <span className="toggle-icon">
+                            {expandedCards[patient.PatientID] ? "▼" : "▶"}
+                          </span>
+                          <h3>{`${patient.PatientFirstname} ${patient.PatientLastname}`}</h3>
+                        </button>
+
+                        {expandedCards[patient.PatientID] && (
+                          <div className="patient-details">
+                            <p>
+                              <strong>Patient ID:</strong> {patient.PatientID}
+                            </p>
+                            <p>
+                              <strong>Email:</strong> {patient.PatientEmail}
+                            </p>
+                            <p>
+                              <strong>Phone:</strong> {patient.PatientPhone}
+                            </p>
+                            <p>
+                              <strong>DOB:</strong> {patient.PatientDOB}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+              </CardContainer>
+
+              {patients.filter((patient) => {
+                const fullName =
+                  `${patient.PatientFirstname} ${patient.PatientLastname}`.toLowerCase();
+                return fullName.includes(searchTerm.toLowerCase());
+              }).length === 0 &&
+                searchTerm && (
+                  <p className="no-results">
+                    No patients found matching "{searchTerm}"
+                  </p>
+                )}
+            </>
           )}
         </>
       )}
