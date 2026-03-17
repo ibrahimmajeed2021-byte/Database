@@ -112,22 +112,24 @@
         transition: all 0.3s;
 
         &.complete-btn {
-          background: #4caf50;
+          background: #555;
           color: white;
 
           &:hover {
-            background: #45a049;
+            background: #333;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
           }
         }
 
         &.cancel-btn {
-          background: #ff9800;
+          background: #555;
           color: white;
+          height: fit-content;
+          margin-top: 113px;
 
           &:hover {
-            background: #fb8c00;
+            background: #333;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
           }

@@ -1,22 +1,17 @@
 import { useState } from "react";
 import "./scss/Form.scss";
 
-const Form = ({ onClose }) => {
+const Form = ({ onClose, onSubmit }) => {
   // Initialisation
 
-  const patients = [
-    {
-      PatientID: 0,
-      PatientFirstname: "",
-      PatientLastname: "",
-      PatientAddress: "",
-      PatientPostcode: "",
-      Patientage: 0,
-    },
-  ];
-
   // State
-  const [patient, setPatient] = useState(patients);
+  const [patient, setPatient] = useState({
+    PatientFirstname: "",
+    PatientLastname: "",
+    PatientAddress: "",
+    PatientPostcode: "SW1A 1AA",
+    PatientAge: 0,
+  });
 
   // Handlers
 
@@ -26,61 +21,92 @@ const Form = ({ onClose }) => {
   };
 
   const handleSubmit = () => {
-    patients.push(patient);
-    console.log(patients);
+    const submissionData = {
+      PatientFirstname:
+        patient.PatientFirstname.length >= 8
+          ? patient.PatientFirstname
+          : patient.PatientFirstname.padEnd(8, " "),
+
+      PatientLastname:
+        patient.PatientLastname.length >= 8
+          ? patient.PatientLastname
+          : patient.PatientLastname.padEnd(8, " "),
+
+      PatientAddress:
+        patient.PatientAddress.length >= 8
+          ? patient.PatientAddress
+          : patient.PatientAddress.padEnd(8, " "),
+
+      PatientPostcode: patient.PatientPostcode || "SW1A 1AA",
+
+      PatientAge: patient.PatientAge || 0,
+    };
+
+    console.log("Original data:", patient);
+    console.log("Sending to API:", submissionData);
+
+    onSubmit(submissionData);
     alert("Form Submitted");
     onClose();
   };
 
   // View
-
   return (
     <div className="form">
-      <label>
-        Patient ID
-        <input type="text" name="PatientID" value={patients.PatientID} />
-      </label>
       <label>
         Patient First Name
         <input
           type="text"
-          name="PatientFirstName"
-          value={patients.PatientFirstname}
+          name="PatientFirstname"
+          value={patient.PatientFirstname}
           onChange={handleChange}
+          minLength="8"
+          placeholder="e.g., Jonathan"
         />
       </label>
+
       <label>
         Patient Last Name
         <input
           type="text"
-          name="PatientLastName"
-          value={patients.PatientLastname}
+          name="PatientLastname"
+          value={patient.PatientLastname}
           onChange={handleChange}
+          minLength="8"
+          placeholder="e.g., Anderson"
         />
       </label>
+
       <label>
         Patient Address
         <input
           type="text"
           name="PatientAddress"
-          value={patients.PatientAddress}
+          value={patient.PatientAddress}
           onChange={handleChange}
+          minLength="8"
+          placeholder="e.g., 123 Main Street"
         />
       </label>
+
       <label>
         Patient Postcode
         <input
           type="text"
           name="PatientPostcode"
-          value={patients.PatientPostcode}
+          value={patient.PatientPostcode}
           onChange={handleChange}
+          placeholder="e.g., SW1A 1AA"
+          pattern="^(GIR\s?0AA|(?:(?:[A-PR-UWYZ][0-9]{1,2})|(?:[A-PR-UWYZ][A-HK-Y][0-9]{1,2})|(?:[A-PR-UWYZ][0-9][A-HJKPSTUW])|(?:[A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]))\s?[0-9][ABD-HJLNP-UW-Z]{2})$"
         />
       </label>
+
       <label>
         Patient Age
         <input
+          type="number"
           name="PatientAge"
-          value={patients.Patientage}
+          value={patient.PatientAge}
           onChange={handleChange}
         />
       </label>
