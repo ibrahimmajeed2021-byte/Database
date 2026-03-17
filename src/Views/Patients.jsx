@@ -8,6 +8,72 @@ import AppointmentBookingForm from "../UI/AppointmentBookingForm.jsx";
 import PatientBooking from "../UI/PatientBooking.jsx";
 import "./Patients.scss";
 
+const NoteForm = ({ patientId, onSave, onCancel }) => {
+  const [noteText, setNoteText] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(patientId, noteText);
+  };
+
+  return (
+    <form className="note-form" onSubmit={handleSubmit}>
+      <h4>Add Note</h4>
+      <textarea
+        placeholder="Enter note here..."
+        value={noteText}
+        onChange={(e) => setNoteText(e.target.value)}
+        rows="4"
+        autoFocus
+      />
+      <div className="note-form-actions">
+        <button type="submit" className="save-note-btn">
+          Save Note
+        </button>
+        <button type="button" onClick={onCancel} className="cancel-note-btn">
+          Cancel
+        </button>
+      </div>
+    </form>
+  );
+};
+
+const NotesDisplay = ({ notes, patientId, onDelete, userRole }) => {
+  if (!notes || notes.length === 0) {
+    return <p className="no-notes">No notes yet</p>;
+  }
+
+  return (
+    <div className="notes-list">
+      <h4>Notes ({notes.length})</h4>
+      {notes.map((note, index) => (
+        <div key={index} className="note-item">
+          <div className="note-header">
+            <div className="note-info">
+              <span className="note-author">{note.CreatedBy || "Unknown"}</span>
+              <span className="note-date">
+                {new Date(note.CreatedDate).toLocaleDateString()}{" "}
+                {new Date(note.CreatedDate).toLocaleTimeString()}
+              </span>
+            </div>
+
+            {userRole === "manager" && (
+              <button
+                className="delete-note-btn"
+                onClick={() => onDelete(patientId, index)}
+                title="Delete note"
+              >
+                🗑️
+              </button>
+            )}
+          </div>
+          <p className="note-text">{note.NoteText}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const InlineEditForm = ({ patient, onSave, onCancel }) => {
   const [formData, setFormData] = useState({
     PatientFirstname: patient.PatientFirstname,
@@ -106,6 +172,7 @@ function Patients({ userRole }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedCards, setExpandedCards] = useState({});
   const [editingPatient, setEditingPatient] = useState(null);
+  const [showNoteForm, setShowNoteForm] = useState(null);
 
   API.get(patientsEndpoint);
 
@@ -201,6 +268,56 @@ function Patients({ userRole }) {
 
   const handleEdit = (patientId) => {
     setEditingPatient(patientId);
+  };
+
+  const handleAddNote = (patientId) => {
+    setShowNoteForm(patientId);
+  };
+
+  const handleSaveNote = async (patientId, noteText) => {
+    if (!noteText.trim()) {
+      alert("Please enter a note");
+      return;
+    }
+
+    const storageKey = `patient_notes_${patientId}`;
+    const existingNotes = JSON.parse(localStorage.getItem(storageKey) || "[]");
+
+    const newNote = {
+      NoteText: noteText,
+      CreatedBy: userRole,
+      CreatedDate: new Date().toISOString(),
+    };
+
+    existingNotes.push(newNote);
+    localStorage.setItem(storageKey, JSON.stringify(existingNotes));
+
+    alert("Note added successfully!");
+    setShowNoteForm(null);
+    loadPatients(patientsEndpoint);
+  };
+
+  const handleDeleteNote = (patientId, noteIndex) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this note?\n\nThis action cannot be undone."
+    );
+
+    if (!confirmDelete) return;
+
+    const storageKey = `patient_notes_${patientId}`;
+    const existingNotes = JSON.parse(localStorage.getItem(storageKey) || "[]");
+
+    existingNotes.splice(noteIndex, 1);
+
+    localStorage.setItem(storageKey, JSON.stringify(existingNotes));
+
+    alert("Note deleted successfully!");
+    loadPatients(patientsEndpoint);
+  };
+
+  const getPatientNotes = (patientId) => {
+    const storageKey = `patient_notes_${patientId}`;
+    return JSON.parse(localStorage.getItem(storageKey) || "[]");
   };
 
   //view
@@ -302,6 +419,37 @@ function Patients({ userRole }) {
                                 <p>
                                   <strong>DOB:</strong> {patient.PatientDOB}
                                 </p>
+
+                                <div className="notes-section">
+                                  <NotesDisplay
+                                    notes={getPatientNotes(patient.PatientID)}
+                                    patientId={patient.PatientID}
+                                    onDelete={handleDeleteNote}
+                                    userRole={userRole}
+                                  />
+
+                                  {(userRole === "manager" ||
+                                    userRole === "clinician") && (
+                                    <>
+                                      {showNoteForm === patient.PatientID ? (
+                                        <NoteForm
+                                          patientId={patient.PatientID}
+                                          onSave={handleSaveNote}
+                                          onCancel={() => setShowNoteForm(null)}
+                                        />
+                                      ) : (
+                                        <button
+                                          className="add-note-btn"
+                                          onClick={() =>
+                                            handleAddNote(patient.PatientID)
+                                          }
+                                        >
+                                          Add Note
+                                        </button>
+                                      )}
+                                    </>
+                                  )}
+                                </div>
 
                                 {userRole === "manager" && (
                                   <div className="patient-actions">
