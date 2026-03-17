@@ -11,7 +11,7 @@ function ClinicianBookings({ clinicianId, clinicianName }) {
       const pendingBookings = allBookings.filter((b) => b.status === "pending");
       setBookings(pendingBookings);
     };
-    // stores in local storage
+
     loadBookings();
     const interval = setInterval(loadBookings, 2000);
     return () => clearInterval(interval);
@@ -90,6 +90,32 @@ function ClinicianBookings({ clinicianId, clinicianName }) {
                     Submitted: {new Date(booking.submittedAt).toLocaleString()}
                   </p>
                 </div>
+                {booking.notes && (
+                  <div className="booking-notes">
+                    <strong>Booking Notes:</strong>
+                    <p>{booking.notes}</p>
+                  </div>
+                )}
+
+                {booking.completed && (
+                  <div className="vaccination-outcome">
+                    <h4>Vaccination Outcome</h4>
+                    <p>
+                      <strong>Vaccination Delivered:</strong>{" "}
+                      {booking.vaccinationDelivered ? "Yes ✓" : "No ✗"}
+                    </p>
+                    {booking.outcomeNotes && (
+                      <div className="outcome-notes-display">
+                        <strong>Outcome Notes:</strong>
+                        <p>{booking.outcomeNotes}</p>
+                      </div>
+                    )}
+                    <p className="completed-date">
+                      Completed:{" "}
+                      {new Date(booking.completedAt).toLocaleString()}
+                    </p>
+                  </div>
+                )}
 
                 <div className="action-buttons">
                   <button

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { CardContainer, Card } from "../UI/Card.jsx";
 import "../UI/scss/PatientBooking.scss";
 
-function PatientBookings() {
+function PatientBookings({ onReschedule }) {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
@@ -28,6 +28,39 @@ function PatientBookings() {
     setBookings(bookings.filter((b) => b.id !== bookingId));
   };
 
+  const handleCancel = (bookingId) => {
+    const booking = bookings.find((b) => b.id === bookingId);
+
+    const confirmMessage =
+      booking.status === "approved"
+        ? "Are you sure you want to cancel this appointment? This cannot be undone."
+        : "Are you sure you want to cancel this booking request?";
+
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
+    const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+    const updatedBookings = allBookings.map((b) =>
+      b.id === bookingId ? { ...b, status: "cancelled" } : b
+    );
+    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+
+    setBookings(
+      bookings.map((b) =>
+        b.id === bookingId ? { ...b, status: "cancelled" } : b
+      )
+    );
+
+    alert("Appointment cancelled successfully.");
+  };
+
+  const handleReschedule = (booking) => {
+    if (onReschedule) {
+      onReschedule(booking);
+    }
+  };
+
   return (
     <div className="patient-bookings">
       <h2>My Appointment Requests</h2>
@@ -41,7 +74,6 @@ function PatientBookings() {
           {bookings.map((booking) => (
             <Card key={booking.id}>
               <div className="booking-card">
-                {/* Dismiss button */}
                 <button
                   className="dismiss-btn"
                   onClick={() => handleDismiss(booking.id)}
@@ -56,6 +88,43 @@ function PatientBookings() {
                     {booking.status === "approved" && "APPROVED"}
                     {booking.status === "rejected" && "REJECTED"}
                   </span>
+                </div>
+                <div className="action-buttons">
+                  {booking.status === "pending" && (
+                    <button
+                      className="cancel-btn"
+                      onClick={() => handleCancel(booking.id)}
+                    >
+                      Cancel Request
+                    </button>
+                  )}
+
+                  {booking.status === "approved" && (
+                    <>
+                      <button
+                        className="reschedule-btn"
+                        onClick={() => handleReschedule(booking)}
+                      >
+                        Reschedule
+                      </button>
+                      <button
+                        className="cancel-btn"
+                        onClick={() => handleCancel(booking.id)}
+                      >
+                        Cancel Appointment
+                      </button>
+                    </>
+                  )}
+
+                  {booking.status === "cancelled" && (
+                    <div className="status-message cancelled">
+                      <strong>Appointment Cancelled</strong>
+                      <p>
+                        This appointment has been cancelled. You can book a new
+                        appointment anytime.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <h3>
@@ -82,6 +151,34 @@ function PatientBookings() {
                     Submitted: {new Date(booking.submittedAt).toLocaleString()}
                   </p>
                 </div>
+
+                {booking.completed && (
+                  <div className="vaccination-outcome">
+                    <h4>Vaccination Outcome</h4>
+                    <p>
+                      <strong>Status:</strong>{" "}
+                      {booking.vaccinationDelivered ? (
+                        <span className="delivered">
+                          ✓ Vaccination Delivered
+                        </span>
+                      ) : (
+                        <span className="not-delivered">
+                          ✗ Vaccination Not Delivered
+                        </span>
+                      )}
+                    </p>
+                    {booking.outcomeNotes && (
+                      <div className="outcome-notes-patient">
+                        <strong>Notes from Clinician:</strong>
+                        <p>{booking.outcomeNotes}</p>
+                      </div>
+                    )}
+                    <p className="completed-date">
+                      Completed:{" "}
+                      {new Date(booking.completedAt).toLocaleString()}
+                    </p>
+                  </div>
+                )}
 
                 {booking.status === "pending" && (
                   <div className="status-message pending">

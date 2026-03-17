@@ -21,7 +21,8 @@
     font-weight: 500;
 
     input,
-    select {
+    select,
+    textarea {
       width: 100%;
       padding: 8px 11px;
       margin-top: 4px;
@@ -29,11 +30,17 @@
       border-radius: 4px;
       font-size: 13px;
       box-sizing: border-box;
+      font-family: inherit;
 
       &:focus {
         outline: none;
         border-color: #4caf50;
         box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 80px;
       }
     }
 
