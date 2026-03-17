@@ -159,3 +159,127 @@
     transform: translateY(0);
   }
 }
+.patient-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+
+  button {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+}
+
+.edit-patient-btn {
+  background: #4caf50;
+  color: white;
+  width: fit-content;
+  height: 64px;
+
+  &:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.delete-patient-btn {
+  background: #f44336;
+  color: white;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 5px;
+
+  &:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+  .inline-edit-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+
+    h4 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: #555;
+      font-weight: 500;
+
+      input {
+        display: block;
+        width: 100%;
+        padding: 8px 12px;
+        margin-top: 5px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+
+        &:focus {
+          outline: none;
+          border-color: #4caf50;
+        }
+      }
+    }
+
+    .inline-form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+
+      button {
+        flex: 1;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .save-btn {
+        background: #4caf50;
+        color: white;
+
+        &:hover {
+          background: #45a049;
+          transform: translateY(-2px);
+        }
+      }
+
+      .cancel-btn {
+        background: #9e9e9e;
+        color: white;
+
+        &:hover {
+          background: #757575;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}
