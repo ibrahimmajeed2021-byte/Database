@@ -1,17 +1,20 @@
 import { useState } from "react";
+
 import "./scss/Form.scss";
 
-const Form = ({ onClose, onSubmit }) => {
+const Form = ({ onClose, onSubmit, existingPatient }) => {
   // Initialisation
 
   // State
-  const [patient, setPatient] = useState({
-    PatientFirstname: "",
-    PatientLastname: "",
-    PatientAddress: "",
-    PatientPostcode: "SW1A 1AA",
-    PatientAge: 0,
-  });
+  const [patient, setPatient] = useState(
+    existingPatient || {
+      PatientFirstname: "",
+      PatientLastname: "",
+      PatientAddress: "",
+      PatientPostcode: "SW1A 1AA",
+      PatientAge: 0,
+    }
+  );
 
   // Handlers
 
