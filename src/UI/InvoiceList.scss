@@ -1,0 +1,57 @@
+.InvoiceList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+
+  .list-container {
+    border: 1px solid LightGrey;
+    border-radius: 10px;
+    padding: 30px;
+    background: lightgrey; 
+    width: fit-content;
+    min-width: 350px;
+
+    .invoice-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: white;
+      border-radius: 5px;
+      gap: 20px;
+
+      span { color: black; font-weight: 500; }
+
+      button {
+        padding: 8px 12px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover { background: #555; }
+      }
+    }
+  }
+}
+
+.invoice-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  p { margin: 0; color: black; strong { color: #333; } }
+  .close-btn {
+    width: 100%;
+    padding: 12px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
