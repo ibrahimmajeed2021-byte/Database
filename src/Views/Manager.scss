@@ -4,6 +4,8 @@
     color: #333;
   }
 
+
+  
   .tab-navigation {
     display: flex;
     gap: 10px;
@@ -43,4 +45,26 @@
       }
     }
   }
+// ... keep all your original .manager-view code here ...
+
+// ADD THIS AT THE VERY BOTTOM (OUTSIDE THE CURLY BRACES)
+.close-btn {
+    display: block; // Ensures it takes up space
+    margin: 20px auto; 
+    width: 100%; 
+    max-width: 300px; // Keeps it from being too wide
+    padding: 12px;
+    background-color: #333 !important; // Force the color
+    color: white !important;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+        background-color: #555 !important;
+    }
+}
 }
