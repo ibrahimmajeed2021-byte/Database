@@ -1,58 +1,69 @@
 import { useState } from "react";
 import "./scss/Form.scss";
 
-const VaccinesForm = ({ onSubmit, onClose }) => {
-	// Initialisation
+const VaccinesForm = ({ onSubmit, onClose, existingVaccine }) => {
+  // State
+  const [vaccine, setVaccine] = useState({
+    VaccineID: existingVaccine?.VaccineID || "",
+    VaccineName: existingVaccine?.VaccineName || "",
+    VaccineCost: existingVaccine?.VaccineCost || "",
+  });
 
-	const initialVaccines = [
-		{
-			VaccineID: 0,
-			VaccineName: "",
-			VaccineCost: 0.0,
-		},
-	];
+  // Handlers
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setVaccine({ ...vaccine, [name]: value });
+  };
 
-	// State
-	const [vaccine, setVaccine] = useState(initialVaccines);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(vaccine);
+  };
 
-	// Handlers
+  // View
+  return (
+    <div className="form">
+      <h3>{existingVaccine ? "Edit Vaccine" : "Add Vaccine"}</h3>
 
-	const handleChange = (event) => {
-		const { name, value } = event.target;
-		setVaccine({ ...vaccine, [name]: value });
-	};
+      <label>
+        Vaccine ID
+        <input
+          name="VaccineID"
+          value={vaccine.VaccineID}
+          onChange={handleChange}
+          disabled={existingVaccine !== null}
+        />
+      </label>
 
-	const handleSubmit = () => onSubmit(vaccine);
+      <label>
+        Vaccine Name
+        <input
+          type="text"
+          name="VaccineName"
+          value={vaccine.VaccineName}
+          onChange={handleChange}
+        />
+      </label>
 
-	// View
+      <label>
+        Vaccine Cost
+        <input
+          type="number"
+          step="0.01"
+          name="VaccineCost"
+          value={vaccine.VaccineCost}
+          onChange={handleChange}
+        />
+      </label>
 
-	return (
-		<div className="form">
-			<label>
-				Vaccine ID
-				<input name="VaccineID" onChange={handleChange} />
-			</label>
-			<label>
-				Vaccine Name
-				<input
-					type="text"
-					name="VaccineName"
-					value={vaccine.VaccineName}
-					onChange={handleChange}
-				/>
-			</label>
-			<label>
-				Vaccine Cost
-				<input
-					name="VaccineCost"
-					value={vaccine.VaccineCost}
-					onChange={handleChange}
-				/>
-			</label>
-			<button onClick={handleSubmit}>Submit</button>
-			<button onClick={onClose}>Close</button>
-		</div>
-	);
+      <button type="button" onClick={handleSubmit}>
+        Submit
+      </button>
+      <button type="button" onClick={onClose}>
+        Close
+      </button>
+    </div>
+  );
 };
 
 export default VaccinesForm;
