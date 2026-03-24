@@ -179,21 +179,9 @@ function Patients({ userRole }) {
   //handlers
   const handleSubmit = async (patient, patientId) => {
     const submissionData = {
-      PatientFirstname:
-        patient.PatientFirstname.length >= 8
-          ? patient.PatientFirstname
-          : patient.PatientFirstname.padEnd(8, " "),
-
-      PatientLastname:
-        patient.PatientLastname.length >= 8
-          ? patient.PatientLastname
-          : patient.PatientLastname.padEnd(8, " "),
-
-      PatientAddress:
-        patient.PatientAddress.length >= 8
-          ? patient.PatientAddress
-          : patient.PatientAddress.padEnd(8, " "),
-
+      PatientFirstname: patient.PatientFirstname,
+      PatientLastname: patient.PatientLastname,
+      PatientAddress: patient.PatientAddress,
       PatientPostcode: "SW1A 1AA",
       PatientAge: patient.PatientAge,
     };

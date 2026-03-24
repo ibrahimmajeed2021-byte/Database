@@ -25,23 +25,10 @@ const Form = ({ onClose, onSubmit, existingPatient }) => {
 
   const handleSubmit = () => {
     const submissionData = {
-      PatientFirstname:
-        patient.PatientFirstname.length >= 8
-          ? patient.PatientFirstname
-          : patient.PatientFirstname.padEnd(8, " "),
-
-      PatientLastname:
-        patient.PatientLastname.length >= 8
-          ? patient.PatientLastname
-          : patient.PatientLastname.padEnd(8, " "),
-
-      PatientAddress:
-        patient.PatientAddress.length >= 8
-          ? patient.PatientAddress
-          : patient.PatientAddress.padEnd(8, " "),
-
+      PatientFirstname: patient.PatientFirstname,
+      PatientLastname: patient.PatientLastname,
+      PatientAddress: patient.PatientAddress,
       PatientPostcode: patient.PatientPostcode || "SW1A 1AA",
-
       PatientAge: patient.PatientAge || 0,
     };
 
@@ -63,7 +50,6 @@ const Form = ({ onClose, onSubmit, existingPatient }) => {
           name="PatientFirstname"
           value={patient.PatientFirstname}
           onChange={handleChange}
-          minLength="8"
           placeholder="e.g., Jonathan"
         />
       </label>
@@ -75,7 +61,6 @@ const Form = ({ onClose, onSubmit, existingPatient }) => {
           name="PatientLastname"
           value={patient.PatientLastname}
           onChange={handleChange}
-          minLength="8"
           placeholder="e.g., Anderson"
         />
       </label>
@@ -87,7 +72,6 @@ const Form = ({ onClose, onSubmit, existingPatient }) => {
           name="PatientAddress"
           value={patient.PatientAddress}
           onChange={handleChange}
-          minLength="8"
           placeholder="e.g., 123 Main Street"
         />
       </label>

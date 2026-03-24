@@ -4,6 +4,7 @@ import ClinicianSchedule from "../UI/ClinicianSchedule.jsx";
 import { Modal, useModal } from "../UI/Modal.jsx";
 import InvoiceList from "../UI/InvoiceList.jsx";
 import Vaccines from "./Vaccines.jsx";
+import Clinicians from "./Clinicians.jsx";
 import "./Manager.scss";
 
 function Manager() {
@@ -46,6 +47,14 @@ function Manager() {
         >
           Manage Vaccines
         </button>
+        <button
+          onClick={() => setActiveTab("clinicians")}
+          className={`tab-button ${
+            activeTab === "clinicians" ? "active" : "inactive"
+          }`}
+        >
+          Manage Clinicians
+        </button>
       </div>
 
       {showInvoices && (
@@ -69,6 +78,7 @@ function Manager() {
       )}
 
       {activeTab === "vaccines" && <Vaccines userRole="manager" />}
+      {activeTab === "clinicians" && <Clinicians userRole="manager" />}
     </div>
   );
 }
