@@ -156,7 +156,6 @@ const CliniciansForm = ({ onClose, onSubmit, existingClinician }) => {
             </select>
           )}
         </label>
-
         <div className="form-actions">
           <button type="submit" className="submit-btn">
             {existingClinician ? "Update Clinician" : "Add Clinician"}
