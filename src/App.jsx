@@ -14,91 +14,100 @@ import Staff from "./Views/Staff.jsx";
 import Vaccines from "./Views/Vaccines.jsx";
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [userRole, setUserRole] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
-	const handleLogout = () => {
-		setIsLoggedIn(false);
-		setUserRole(null);
-	};
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserRole(null);
+  };
 
-	return (
-		<>
-			<BrowserRouter>
-				<Layout
-					isLoggedIn={isLoggedIn}
-					userRole={userRole}
-					onLogout={handleLogout}
-				>
-					<Routes>
-						<Route path="/" element={<Landing />} />
-						<Route
-							path="/manager"
-							element={
-								isLoggedIn && userRole === "manager" ? (
-									<Manager />
-								) : (
-									<Navigate to="/" />
-								)
-							}
-						/>
-						<Route
-							path="/clinician"
-							element={
-								isLoggedIn &&
-								(userRole === "manager" || userRole === "clinician") ? (
-									<Clinician />
-								) : (
-									<Navigate to="/" />
-								)
-							}
-						/>
-						<Route
-							path="/patient"
-							element={
-								isLoggedIn ? (
-									<Patients userRole={userRole} />
-								) : (
-									<Navigate to="/" />
-								)
-							}
-						/>
-						<Route path="/*" element={<PageNotFound />} />
-						<Route path="/home" element={<HomePage />} />
-						<Route
-							path="/login/manager"
-							element={
-								<LoginManager
-									setIsLoggedIn={setIsLoggedIn}
-									setUserRole={setUserRole}
-								/>
-							}
-						/>
-						<Route
-							path="/login/clinician"
-							element={
-								<LoginClinician
-									setIsLoggedIn={setIsLoggedIn}
-									setUserRole={setUserRole}
-								/>
-							}
-						/>
-						<Route
-							path="/login/patient"
-							element={
-								<LoginPatient
-									setIsLoggedIn={setIsLoggedIn}
-									setUserRole={setUserRole}
-								/>
-							}
-						/>
-						<Route path="/staff" element={<Staff />} />
-						<Route path="/vaccines" element={<Vaccines />} />
-					</Routes>
-				</Layout>
-			</BrowserRouter>
-		</>
-	);
+  return (
+    <>
+      <BrowserRouter>
+        <Layout
+          isLoggedIn={isLoggedIn}
+          userRole={userRole}
+          onLogout={handleLogout}
+        >
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route
+              path="/manager"
+              element={
+                isLoggedIn && userRole === "manager" ? (
+                  <Manager />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/clinician"
+              element={
+                isLoggedIn &&
+                (userRole === "manager" || userRole === "clinician") ? (
+                  <Clinician />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/patient"
+              element={
+                isLoggedIn ? (
+                  <Patients userRole={userRole} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route path="/*" element={<PageNotFound />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route
+              path="/login/manager"
+              element={
+                <LoginManager
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserRole={setUserRole}
+                />
+              }
+            />
+            <Route
+              path="/login/clinician"
+              element={
+                <LoginClinician
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserRole={setUserRole}
+                />
+              }
+            />
+            <Route
+              path="/login/patient"
+              element={
+                <LoginPatient
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserRole={setUserRole}
+                />
+              }
+            />
+            <Route path="/staff" element={<Staff />} />
+            <Route
+              path="/vaccines"
+              element={
+                isLoggedIn && userRole === "manager" ? (
+                  <Vaccines userRole={userRole} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;

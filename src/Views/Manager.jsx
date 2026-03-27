@@ -3,6 +3,8 @@ import ClinicianBooking from "../UI/ClinicianBooking.jsx";
 import ClinicianSchedule from "../UI/ClinicianSchedule.jsx";
 import { Modal, useModal } from "../UI/Modal.jsx";
 import InvoiceList from "../UI/InvoiceList.jsx";
+import Vaccines from "./Vaccines.jsx";
+import Clinicians from "./Clinicians.jsx";
 import "./Manager.scss";
 
 function Manager() {
@@ -37,13 +39,30 @@ function Manager() {
         <button onClick={openInvoices} className="tab-button inactive">
           View All Invoices
         </button>
-      
+        <button
+          onClick={() => setActiveTab("vaccines")}
+          className={`tab-button ${
+            activeTab === "vaccines" ? "active" : "inactive"
+          }`}
+        >
+          Manage Vaccines
+        </button>
+        <button
+          onClick={() => setActiveTab("clinicians")}
+          className={`tab-button ${
+            activeTab === "clinicians" ? "active" : "inactive"
+          }`}
+        >
+          Manage Clinicians
+        </button>
       </div>
 
       {showInvoices && (
         <Modal title="Clinic Financial Records">
           <InvoiceList />
-          <button className="close-btn" onClick={closeInvoices}>Return to Dashboard</button>
+          <button className="close-btn" onClick={closeInvoices}>
+            Return to Dashboard
+          </button>
         </Modal>
       )}
 
@@ -57,6 +76,9 @@ function Manager() {
           clinicianName="All Clinicians"
         />
       )}
+
+      {activeTab === "vaccines" && <Vaccines userRole="manager" />}
+      {activeTab === "clinicians" && <Clinicians userRole="manager" />}
     </div>
   );
 }
